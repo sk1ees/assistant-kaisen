@@ -21,7 +21,7 @@ def playAssistantSound():
     music_dir = "www\\assets\\audio\\start_sound.mp3"
     playsound(music_dir)
 
-
+# added open-command with the help of sqlite database
 def openCommand(query):
     query = query.replace(ASSISTANT_NAME, "")
     query = query.replace("open", "")
@@ -55,9 +55,7 @@ def openCommand(query):
                         speak("not found")
         except:
             speak("something went wrong")
-
-            
-
+# added search-query function to play on youtube 
 def playYoutube(query):
     search_term = extract_yt_term(query)
     if search_term!=None:
@@ -65,7 +63,7 @@ def playYoutube(query):
         pwt.playonyt(search_term);
     else:
         speak("you haven't said what do i search on youtube!")
-
+# added hotword-key-detection
 def hotword():
     porcupine=None
     paud=None

@@ -43,22 +43,34 @@ def takecommand():
     return query
 
 @eel.expose
-def allCommands():
-    while True:
-        try:
-            query = takecommand().lower()
-            print( query)
+def allCommands(message=1):
+    if message == 1:
+        query = takecommand().lower()
+        print( query)
+    else:
+        query = message
+
+    try:
+         
+        if "open" in query:
+            from engine.features import openCommand
+            openCommand(query)
+
+        if "on youtube" in query :
+            from engine.features import playYoutube
+            playYoutube(query)
+        while True:
+
             if "you can stop now" in query:
                 eel.DisplayMessage("Thank you sir, and have a great day!")
                 speak('Thank you sir, and have a great day!')
                 eel.showHood()
                 break
-            if "open" in query:
-                from engine.features import openCommand
-                openCommand(query)
-
-            if "on youtube" in query :
-                from engine.features import playYoutube
-                playYoutube(query)
-        except:
-            print("Error")
+            else:
+                query = takecommand().lower()
+                print( query)
+                allCommands(query)
+            break
+    except:
+        print("Error")
+    eel.showHood()

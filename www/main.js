@@ -54,4 +54,38 @@ $(document).ready(function () {
     }
   }
   document.addEventListener("keyup", doc_keyUp, false);
+
+  //logic for checking whether the sending message is not empty
+  function PlayAssistant(message) {
+    if (message != "") {
+      $("#Oval").attr("hidden", true);
+      $("#SiriWave").attr("hidden", false);
+      eel.allCommands(message);
+      $("#chatbox").val("");
+      $("#MicBtn").attr("hidden", false);
+      $("#SendBtn").attr("hidden", true);
+    }
+  }
+  //logic for toggling the send and mic button
+
+  function showHideButton(message) {
+    if (message.length == 0) {
+      $("#MicBtn").attr("hidden", false);
+      $("#SendBtn").attr("hidden", true);
+    } else {
+      $("#MicBtn").attr("hidden", true);
+      $("#SendBtn").attr("hidden", false);
+    }
+  }
+
+  // event-handlers for the respective chatting functions
+
+  $("#chatbox").keyup(function () {
+    let message = $("#chatbox").val();
+    showHideButton(message);
+  });
+  $("#SendBtn").click(function () {
+    let message = $("#chatbox").val();
+    PlayAssistant(message);
+  });
 });
