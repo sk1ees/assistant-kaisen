@@ -1,1 +1,5 @@
 /kaisen-hall
+assistant.db
+/engine/__pycache__
+__pycache__
+/engine/cookies.json
