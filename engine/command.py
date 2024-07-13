@@ -11,7 +11,7 @@ import time
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices') 
 engine.setProperty('voice', voices[1].id)
-engine.setProperty('rate', 140)     
+engine.setProperty('rate', 174)     
 
 # text to speech 
 def speak(audio):
