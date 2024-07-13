@@ -14,7 +14,7 @@ def speak(audio):
     eel.DisplayMessage(audio)
     
     engine.say(audio)
-    
+    eel.receiverText(audio)
     engine.runAndWait()
 
 # converting text to speech 
@@ -47,9 +47,10 @@ def allCommands(message=1):
     if message == 1:
         query = takecommand().lower()
         print( query)
+        eel.senderText(query)
     else:
         query = message
-
+        eel.senderText(query)
     try:
          
         if "open" in query:
