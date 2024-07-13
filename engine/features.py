@@ -1,12 +1,17 @@
 import os
 import re
 import sqlite3
+import struct
+import time
 import webbrowser
 from playsound import playsound
 import eel
+import pyaudio
 import pywhatkit as pwt
+import pvporcupine
 from engine.command import speak
 from engine.config import ASSISTANT_NAME
+from engine.helper import extract_yt_term
 # playAssistantSound function 
 conn = sqlite3.connect("assistant.db")
 
@@ -19,7 +24,7 @@ def playAssistantSound():
 
 def openCommand(query):
     query = query.replace(ASSISTANT_NAME, "")
-    query = query.replace("can you please open", "")
+    query = query.replace("open", "")
     query.lower()
 
     app_name = query.strip()
@@ -61,7 +66,37 @@ def playYoutube(query):
     else:
         speak("you haven't said what do i search on youtube!")
 
-def extract_yt_term(command):
-    pattern = r'play\s+(.*?)\s+on\s+youtube'
-    match = re.search(pattern,command,re.IGNORECASE)
-    return match.group(1) if match else None
+def hotword():
+    porcupine=None
+    paud=None
+    audio_stream=None
+    try:
+        # trained-keywords 
+        porcupine = pvporcupine.create(keywords=["jarvis","alexa"])
+        paud = pyaudio.PyAudio()
+        audio_stream = paud.open(rate=porcupine.sample_rate,channels=1,format=pyaudio.paInt16,input=True,frames_per_buffer=porcupine.frame_length)
+        # streaming loop 
+        while True:
+            keyword=audio_stream.read(porcupine.frame_length)
+            keyword = struct.unpack_from("h"*porcupine.frame_length,keyword)
+
+            # processing keyword comes from the mic 
+            keyword_index = porcupine.process(keyword)
+
+            # checking first keyword detected for not 
+            if keyword_index>=0:
+                print("hotword detected")
+
+                # presssing shortcut key 
+                import pyautogui as autogui
+                autogui.keyDown('win')
+                autogui.press('j')
+                time.sleep(2)
+                autogui.keyUp('win')
+    except:
+        if porcupine is not None:
+            porcupine.delete()
+        if audio_stream is not None:
+            audio_stream.close()
+        if paud is not None:
+            paud.terminate()
