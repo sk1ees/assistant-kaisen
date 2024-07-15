@@ -21,12 +21,16 @@ conn = sqlite3.connect("assistant.db")
 cursor = conn.cursor()
 @eel.expose
 def playAssistantSound():
+    music_dir = "www\\assets\\audio\\starting.wav"
+    playsound(music_dir)
+@eel.expose
+def playSiriSound():
     music_dir = "www\\assets\\audio\\start_sound.mp3"
     playsound(music_dir)
 
 # added open-command with the help of sqlite database
 def openCommand(query):
-    query = query.replace(ASSISTANT_NAME, "")
+    query = query.replace("can you please", "")
     query = query.replace("open", "")
     query.lower()
 

@@ -10,7 +10,7 @@ import time
 # initializing engine 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices') 
-engine.setProperty('voice', voices[1].id)
+engine.setProperty('voice', voices[0].id)
 engine.setProperty('rate', 174)     
 
 # text to speech 
@@ -76,6 +76,11 @@ def allCommands(message=1):
             if "you can stop now" in query:
                 eel.DisplayMessage("Thank you sir, and have a great day!")
                 speak('Thank you sir, and have a great day!')
+                eel.showHood()
+                break
+            if "goodbye" in query:
+                eel.DisplayMessage("dont call me for this silly type questions unless its for NASA")
+                speak('dont call me for this silly type questions unless its for NASA')
                 eel.showHood()
                 break
             else:

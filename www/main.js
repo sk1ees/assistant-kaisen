@@ -37,7 +37,7 @@ $(document).ready(function () {
 
   //micBtn click-event
   $("#MicBtn").click(function (e) {
-    eel.playAssistantSound();
+    eel.playSiriSound();
     $("#Oval").attr("hidden", true);
     $("#SiriWave").attr("hidden", false);
     eel.allCommands()();
@@ -47,7 +47,7 @@ $(document).ready(function () {
 
   function doc_keyUp(e) {
     if (e.key === "j" && e.metaKey) {
-      eel.playAssistantSound();
+      eel.playSiriSound();
       $("#Oval").attr("hidden", true);
       $("#SiriWave").attr("hidden", false);
       eel.allCommands()();
@@ -88,9 +88,9 @@ $(document).ready(function () {
     let message = $("#chatbox").val();
     PlayAssistant(message);
   });
-  $('#chatbox').keypress(function (e) { 
+  $("#chatbox").keypress(function (e) {
     key = e.which;
-    if(key==13){
+    if (key == 13) {
       let message = $("#chatbox").val();
       PlayAssistant(message);
     }
